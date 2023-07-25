@@ -9,6 +9,7 @@ def get_products(db: Session):
     print(products)
     for item in products:
         item[0].__dict__["brand"] = item[1].name
+        
     return products
 
 def get_brands(db: Session):
