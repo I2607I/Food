@@ -1,26 +1,47 @@
 from typing import List
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import datetime
 from uuid import UUID
 
-
 class Product(BaseModel):
-    id: int
     name: str
     type: str
-    brand: str
+    # brand_id: int
     count: int | None
-    weight: float
-    protein: float
-    fat: float
-    сarbohydrate: float
-    kkal: float
+    weight: float = Field(gt=0)
+    protein: float = Field(ge=0)
+    fat: float = Field(ge=0)
+    сarbohydrate: float = Field(ge=0)
+    kkal: float = Field(ge=0)
     shop: str
     date: datetime.date | None
-    cost: float
+    cost: float = Field(gt=0)
 
-class Products(BaseModel):
-    products: List[Product]
+class ProductGet(Product):
+    brand: str
+    id: int
+
+class ProductPost(Product):
+    brand_id: int
+
+
+class ProductsPost(BaseModel):
+    products: List[ProductPost]
 
     class Config:
         from_attributes = True
+
+class ProductsGet(BaseModel):
+    products: List[ProductGet]
+
+class Brand(BaseModel):
+    name: str
+
+class BrandGet(Brand):
+    id: int
+
+class Brands(BaseModel):
+    brands: List[Brand]
+
+class BrandsGet(BaseModel):
+    brands: List[BrandGet]
