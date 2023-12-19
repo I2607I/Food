@@ -44,3 +44,10 @@ def create_brands(brands: schemas.Brands, db: Session = Depends(get_db)):
     for brand in brands.brands:
         crud.create_brand(db=db, object=brand)
     return brands
+
+@app.get("/stat/{param}", response_model=schemas.ProductsPost)
+def stat(param: str, limit: int = 10, offset: int = 0, db: Session = Depends(get_db)):
+    products = crud.get_products_sort(db=db, param=param, limit=limit, offset=offset)
+    print(products)
+    return {"products": products}
+

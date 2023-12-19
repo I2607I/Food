@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func, text
 import models
 import schemas
 
@@ -10,7 +10,10 @@ def get_products(db: Session):
         item[0].__dict__["brand"] = item[1].name
         print(item[0].__dict__)
         print(item[1].__dict__)
-        
+    return products
+
+def get_products_sort(db: Session, param: str, limit: int, offset: int):
+    products = db.query(models.Products).order_by(text(f'products.{param}')).offset(offset).limit(limit)
     return products
 
 def get_brands(db: Session):
