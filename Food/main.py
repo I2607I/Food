@@ -23,13 +23,6 @@ def get_db():
 @app.get("/products", response_model=schemas.ProductsGet)
 def read_products(db: Session = Depends(get_db)):
     products = crud.get_products(db=db)
-    # res = []
-    # for item in products:
-        # print(item[0].__dict__ + item[1].__dict__)
-        # a = dict(list(item[0].__dict__.items()) + list(item[1].__dict__.items()))
-        # res.append(a)
-    # for item in res:
-    #     print(item)
     res = []
     for item in products:
         res.append(item[0])
@@ -44,9 +37,7 @@ def read_brands(db: Session = Depends(get_db)):
 def create_products(products: schemas.ProductsPost, db: Session = Depends(get_db)):
     for product in products.products:
         crud.create_product(db=db, object=product)
-    # return "sucsess"
     return products
-    return {"products": products.products}
 
 @app.post("/brands", response_model=schemas.Brands)
 def create_brands(brands: schemas.Brands, db: Session = Depends(get_db)):

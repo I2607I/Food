@@ -11,7 +11,6 @@ class Products(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
     type = Column(String)
-    # brand = Column(String)
     brand_id = Column(Integer, ForeignKey("brands.id"))
     count = Column(Integer)
     weight = Column(Float)
@@ -22,7 +21,6 @@ class Products(Base):
     shop = Column(String)
     date = Column(Date)
     cost = Column(Float)
-    # numbers = relationship("Numbers_mobile")
 
 class Brands(Base):
     __tablename__ = "brands"

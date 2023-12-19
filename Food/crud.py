@@ -6,9 +6,10 @@ import schemas
 
 def get_products(db: Session):
     products = db.query(models.Products, models.Brands).join(models.Brands).filter(models.Brands.id == models.Products.brand_id).all()
-    print(products)
     for item in products:
         item[0].__dict__["brand"] = item[1].name
+        print(item[0].__dict__)
+        print(item[1].__dict__)
         
     return products
 
